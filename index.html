@@ -4,8 +4,251 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>CRUD - Citas Médicas</title>
+
+    <!-- Bulma CSS -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bulma@1.0.4/css/bulma.min.css"
+    />
   </head>
+
   <body>
-    <h1>Citas Médicas - APP</h1>
+    <!-- HERO / ENCABEZADO -->
+    <section class="hero is-link">
+      <div class="hero-body">
+        <div class="container">
+          <h1 class="title">Citas Médicas - APP</h1>
+          <p class="subtitle">
+            Registro de citas médicas usando HTML, Bulma, DOM y LocalStorage
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTENIDO PRINCIPAL -->
+    <main class="section">
+      <div class="container">
+        <div class="columns is-variable is-6">
+          <!-- FORMULARIO -->
+          <div class="column is-5">
+            <div class="box">
+              <h2 class="title is-4">Registrar cita médica</h2>
+
+              <form id="formCita">
+                <!-- Número de seguro -->
+                <div class="field">
+                  <label class="label" for="numeroSeguro">
+                    Número de seguro
+                  </label>
+                  <div class="control">
+                    <input
+                      class="input"
+                      type="text"
+                      id="numeroSeguro"
+                      name="numeroSeguro"
+                      placeholder="Ejemplo: NSS123456789"
+                      required
+                    />
+                  </div>
+                </div>
+
+                <!-- Nombre completo -->
+                <div class="field">
+                  <label class="label" for="nombreCompleto">
+                    Nombre completo
+                  </label>
+                  <div class="control">
+                    <input
+                      class="input"
+                      type="text"
+                      id="nombreCompleto"
+                      name="nombreCompleto"
+                      placeholder="Ejemplo: Juan Pérez López"
+                      required
+                    />
+                  </div>
+                </div>
+
+                <!-- Cédula -->
+                <div class="field">
+                  <label class="label" for="cedula">Cédula</label>
+                  <div class="control">
+                    <input
+                      class="input"
+                      type="text"
+                      id="cedula"
+                      name="cedula"
+                      placeholder="Ejemplo: ABCD010203HGRRNN09"
+                      required
+                    />
+                  </div>
+                </div>
+
+                <!-- Correo electrónico -->
+                <div class="field">
+                  <label class="label" for="correo">Correo electrónico</label>
+                  <div class="control">
+                    <input
+                      class="input"
+                      type="email"
+                      id="correo"
+                      name="correo"
+                      placeholder="Ejemplo: paciente@email.com"
+                      required
+                    />
+                  </div>
+                </div>
+
+                <!-- Fecha de nacimiento -->
+                <div class="field">
+                  <label class="label" for="fechaNacimiento">
+                    Fecha de nacimiento
+                  </label>
+                  <div class="control">
+                    <input
+                      class="input"
+                      type="date"
+                      id="fechaNacimiento"
+                      name="fechaNacimiento"
+                      required
+                    />
+                  </div>
+                </div>
+
+                <!-- Fecha de cita -->
+                <div class="field">
+                  <label class="label" for="fechaCita"> Fecha de cita </label>
+                  <div class="control">
+                    <input
+                      class="input"
+                      type="datetime-local"
+                      id="fechaCita"
+                      name="fechaCita"
+                      required
+                    />
+                  </div>
+                </div>
+
+                <!-- Motivo de la cita -->
+                <div class="field">
+                  <label class="label" for="motivoCita">
+                    Motivo de la cita
+                  </label>
+                  <div class="control">
+                    <textarea
+                      class="textarea"
+                      id="motivoCita"
+                      name="motivoCita"
+                      placeholder="Describe brevemente el motivo de la cita"
+                      required
+                    ></textarea>
+                  </div>
+                </div>
+
+                <!-- Botones -->
+                <div class="field is-grouped mt-5">
+                  <div class="control">
+                    <button type="submit" class="button is-link">
+                      Guardar cita
+                    </button>
+                  </div>
+
+                  <div class="control">
+                    <button
+                      type="reset"
+                      class="button is-light"
+                      id="btnLimpiar"
+                    >
+                      Limpiar
+                    </button>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+
+          <!-- TABLA -->
+          <div class="column is-7">
+            <div class="box">
+              <div class="level">
+                <div class="level-left">
+                  <div>
+                    <h2 class="title is-4">Listado de citas</h2>
+                    <p class="subtitle is-6">
+                      Aquí se mostrarán las citas registradas.
+                    </p>
+                  </div>
+                </div>
+
+                <div class="level-right">
+                  <button class="button is-danger is-light" id="btnVaciarTabla">
+                    Vaciar registros
+                  </button>
+                </div>
+              </div>
+
+              <div class="table-container">
+                <table class="table is-fullwidth is-striped is-hoverable">
+                  <thead>
+                    <tr>
+                      <th>#</th>
+                      <th>Número de seguro</th>
+                      <th>Paciente</th>
+                      <th>Cédula</th>
+                      <th>Correo</th>
+                      <th>Fecha nacimiento</th>
+                      <th>Fecha cita</th>
+                      <th>Motivo</th>
+                      <th>Acciones</th>
+                    </tr>
+                  </thead>
+
+                  <tbody id="tablaCitas">
+                    <!-- 
+                      Aquí se insertarán los registros con JavaScript.
+
+                      Ejemplo futuro:
+                      <tr>
+                        <td>1</td>
+                        <td>NSS123456789</td>
+                        <td>Juan Pérez López</td>
+                        <td>ABCD010203HGRRNN09</td>
+                        <td>juan@email.com</td>
+                        <td>1998-05-10</td>
+                        <td>2026-06-10T09:30</td>
+                        <td>Consulta general</td>
+                        <td>
+                          <button class="button is-small is-warning">Editar</button>
+                          <button class="button is-small is-danger">Eliminar</button>
+                        </td>
+                      </tr>
+                    -->
+                  </tbody>
+                </table>
+              </div>
+
+              <article class="message is-info mt-4" id="mensajeSinCitas">
+                <div class="message-body">
+                  No hay citas registradas todavía.
+                </div>
+              </article>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+      <div class="content has-text-centered">
+        <p>
+          <strong>Citas Médicas - APP</strong> | Proyecto preparado para usar
+          DOM y LocalStorage con JavaScript.
+        </p>
+      </div>
+    </footer>
+
+    <!-- Archivo JavaScript futuro -->
+    <script src="./app.js"></script>
   </body>
 </html>
