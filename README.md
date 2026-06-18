@@ -43,7 +43,8 @@ El formulario permite capturar información básica del paciente y de la cita m�
 crud-citas-medicas/
 │
 ├── index.html
-├── app.js
+├── assets
+├────main.js
 └── README.md
 ```
 
